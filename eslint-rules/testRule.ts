@@ -1,14 +1,14 @@
 import { TSESLint, AST_NODE_TYPES} from '@typescript-eslint/utils';
 
-type MessageIds = 'messageIdForSomeFailure' | 'messageIdForSomeOtherFailure';
+type MessageIds = 'messageIdForUsingFoo' | 'messageIdForUsingBar';
 
 const myRule: TSESLint.RuleModule<MessageIds> = {
     defaultOptions: [],
     meta: {
         type: 'suggestion',
         messages: {
-            messageIdForSomeFailure: 'Error message for some failure',
-            messageIdForSomeOtherFailure: 'Error message for some other failure',
+            messageIdForUsingFoo: 'Error message for using "FOO" failure',
+            messageIdForUsingBar: 'Error message for using "BAR" failure',
         },
         fixable: 'code',
         schema: [], // no options
@@ -23,13 +23,13 @@ const myRule: TSESLint.RuleModule<MessageIds> = {
             if (node.callee.name === 'foo') {
                 return context.report({
                     node: node.callee,
-                    messageId: 'messageIdForSomeFailure',
+                    messageId: 'messageIdForUsingFoo',
                 });
             }
             if (node.callee.name === 'bar') {
                 return context.report({
                     node: node.callee,
-                    messageId: 'messageIdForSomeOtherFailure',
+                    messageId: 'messageIdForUsingBar',
                 });
             }
 

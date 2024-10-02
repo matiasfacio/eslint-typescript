@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# Experimenting with eslint custom rules
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## How to run
 
-Currently, two official plugins are available:
+1. cd into eslint-rules
+2. run `yarn link`
+3. cd into project where you want to use the custom rule
+4. run `yarn link eslint-plugin-rules` (this name can be found in the package.json file of the eslint)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Everywhere you have a `.eslintrc` file, you can add the custom rule like this:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+```json
+{
+  "plugins": ["rules"],
+  "rules": {
+    "rules/my-rule-name": "warn"
+  }
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+you should now also see this local package in the node_modules folder of the project you linked it to.
+
+### When you want to update the rule
+
+1. cd into eslint-rules
+2. run `yarn unlink`
+3. edit your rule
+4. run tsc compiler `tsc testRule.ts`
+5. run `yarn link`
+6. cd into project where you want to use the custom rule
+7. run `yarn link eslint-plugin-rules` (name of the package in the package.json file of the eslint)
+
+### When you want to remove the rule
+
+1. cd into project where you want to remove the custom rule
+2. run `yarn unlink eslint-plugin-rules`
+3. cd into eslint-rules
+4. run `yarn unlink`
+5. remove the rule from the `.eslintrc` file

@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("@typescript-eslint/utils");
-const myRule = {
+var utils_1 = require("@typescript-eslint/utils");
+var myRule = {
     defaultOptions: [],
     meta: {
         type: 'suggestion',
         messages: {
-            messageIdForSomeFailure: 'Error message for some failure',
-            messageIdForSomeOtherFailure: 'Error message for some other failure',
+            messageIdForUsingFoo: 'Error message for using "FOO" failure',
+            messageIdForUsingBar: 'Error message for using "BAR" failure',
         },
         fixable: 'code',
         schema: [], // no options
     },
-    create: context => ({
-        CallExpression: node => {
+    create: function (context) { return ({
+        CallExpression: function (node) {
             // we only care about the callees that have a name (see below)
             if (node.callee.type !== utils_1.AST_NODE_TYPES.Identifier) {
                 return;
@@ -21,17 +21,17 @@ const myRule = {
             if (node.callee.name === 'foo') {
                 return context.report({
                     node: node.callee,
-                    messageId: 'messageIdForSomeFailure',
+                    messageId: 'messageIdForUsingFoo',
                 });
             }
             if (node.callee.name === 'bar') {
                 return context.report({
                     node: node.callee,
-                    messageId: 'messageIdForSomeOtherFailure',
+                    messageId: 'messageIdForUsingBar',
                 });
             }
             return;
         },
-    }),
+    }); },
 };
 exports.default = myRule;
