@@ -7,10 +7,10 @@ const myRule: TSESLint.RuleModule<MessageIds> = {
     meta: {
         type: 'problem',
         messages: {
-            messageIdForUsingFoo: 'Custom Eslint Error: for using "FOO" failure, you need to provide at least one argument',
-            messageIdForUsingBar: 'Custom Eslint Error: for using "BAR" failure',
-            myNameShouldNotBeMatias: 'Custom Eslint Error: You made a mistake here as "{{value}}" includes "matias" was encountered',
-            functionStartsWithFoo: 'Custom Eslint Error: functions should not start with "foo"',
+            messageIdForUsingFoo: 'Custom Eslint Error: for using "FOO" failure, you need to provide at least one argument. ',
+            messageIdForUsingBar: 'Custom Eslint Error: for using "BAR" failure. ',
+            myNameShouldNotBeMatias: 'Custom Eslint Error: You made a mistake here as "{{value}}" includes "matias" was encountered. ',
+            functionStartsWithFoo: 'Custom Eslint Error: functions should not start with "foo". ',
         },
         fixable: 'code',
         schema: [], // no options
@@ -24,16 +24,19 @@ const myRule: TSESLint.RuleModule<MessageIds> = {
                     if ("init" in node
                         && node.init !== null
                         && "value" in node.init
-                        && node.init?.value?.toString().toLowerCase().includes('matias')
+                        && node.init.value?.toString().toLowerCase().includes('matias')
                         ) {
+                        const value = node.init.value;
                         return context.report({
                             node: node.init,
                             messageId: 'myNameShouldNotBeMatias',
                             data: {
-                                value: node.init.value,
+                                value,
                             },
                             fix(fixer) {
-                                return fixer.replaceText(node.init!, '"xxxxxxx"');
+                                const newText = value.toString().replaceAll('matias', '');
+                                const newText2 = newText.replaceAll('Matias', '');
+                                return fixer.replaceText(node.init!, '"' + newText2 + '"');
                             }
                         });
                     }

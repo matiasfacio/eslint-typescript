@@ -6,10 +6,10 @@ var myRule = {
     meta: {
         type: 'problem',
         messages: {
-            messageIdForUsingFoo: 'Custom Eslint Error: for using "FOO" failure, you need to provide at least one argument',
-            messageIdForUsingBar: 'Custom Eslint Error: for using "BAR" failure',
-            myNameShouldNotBeMatias: 'Custom Eslint Error: You made a mistake here as "{{value}}" includes "matias" was encountered',
-            functionStartsWithFoo: 'Custom Eslint Error: functions should not start with "foo"',
+            messageIdForUsingFoo: 'Custom Eslint Error: for using "FOO" failure, you need to provide at least one argument. ',
+            messageIdForUsingBar: 'Custom Eslint Error: for using "BAR" failure. ',
+            myNameShouldNotBeMatias: 'Custom Eslint Error: You made a mistake here as "{{value}}" includes "matias" was encountered. ',
+            functionStartsWithFoo: 'Custom Eslint Error: functions should not start with "foo". ',
         },
         fixable: 'code',
         schema: [], // no options
@@ -18,21 +18,24 @@ var myRule = {
         console.log('context', context);
         return ({
             VariableDeclarator: function (node) {
-                var _a, _b;
+                var _a;
                 console.log('node', node);
                 if ("kind" in node.parent && node.parent.kind === 'const') {
                     if ("init" in node
                         && node.init !== null
                         && "value" in node.init
-                        && ((_b = (_a = node.init) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.toString().toLowerCase().includes('matias'))) {
+                        && ((_a = node.init.value) === null || _a === void 0 ? void 0 : _a.toString().toLowerCase().includes('matias'))) {
+                        var value_1 = node.init.value;
                         return context.report({
                             node: node.init,
                             messageId: 'myNameShouldNotBeMatias',
                             data: {
-                                value: node.init.value,
+                                value: value_1,
                             },
                             fix: function (fixer) {
-                                return fixer.replaceText(node.init, '"xxxxxxx"');
+                                var newText = value_1.toString().replaceAll('matias', '');
+                                var newText2 = newText.replaceAll('Matias', '');
+                                return fixer.replaceText(node.init, '"' + newText2 + '"');
                             }
                         });
                     }
