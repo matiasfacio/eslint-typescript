@@ -6,6 +6,16 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+      resolve: {
+        "modules": ["../eslint-rules"]
+      }
+    },
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'rules'],
@@ -14,6 +24,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'rules/my-rule-name': 1
-  },
+    'rules/my-rule-name': 'error'
+  }
 }
