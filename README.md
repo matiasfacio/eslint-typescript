@@ -54,3 +54,25 @@ You should now see this local package in the node_modules folder of the project 
 3. cd into eslint-rules
 4. run `yarn unlink`
 5. remove the rule from the `.eslintrc` file
+
+
+## Advantages/disadvantages of using first approach (installing)
+- **Advantages**
+  - You can easily update the rule by running `yarn add ./estlin-rules`
+  - You can easily remove the rule by running `yarn remove eslint-plugin-rules`
+- **Disadvantages**
+  - You have to run `yarn add ./estlin-rules` every time you want to use the rule in a new project
+  - You have to run `yarn remove eslint-plugin-rules` every time you want to remove the rule from a project
+
+## Advantages/disadvantages of using second approach (linking)
+- **Advantages**
+  - Fast development cycle since you can edit the rule and by being them linked, the changes will be reflected immediately
+  - You can easily remove the rule by running `yarn unlink eslint-plugin-rules`
+- **Disadvantages**
+  - Potencial dependency issues since the linking package might have dependencies that collied with the ones in your project
+  - Possible inconsistencies across development environments
+  - Need to be `unlink` before production, otherwise unexpected behaviours might happen, specially if the rule is not production ready
+  - Potencial dependency mismatches might cause issues since they aren't cully controlled through the normal package installation process
+- **Notes**
+  - Use when actively developing a package and need to test it across multiple projects, or you want to debug it without constantly publishing it to npm
+  - Don't use it in a collaborative environment, since it might cause issues with other developers who might not understand how to use yarn link
