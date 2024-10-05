@@ -29,10 +29,22 @@ const myRule: TSESLint.RuleModule<MessageIds> = {
                         });
                     }
                 }
+            },
+            FunctionDeclaration: node => {
+                if (node.id) {
+                    const name = node.id.name;
+                    if (name.startsWith('foo')) {
+                        return context.report({
+                            node: node.id,
+                            messageId: 'functionStartsWithFoo',
+                            fix: fixer => {
+                                return fixer.replaceText(node.id!, name.replace('foo', 'bar'));
+                            }
+                        });
             }
-        }
-        )
-    }
-}
+        }}})
+
+    }}
+
 
 export default myRule
