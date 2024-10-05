@@ -11,6 +11,9 @@ function fooLandia(){
     return 'FooLandia'
 }
 
+const barmyArrow = ()=> null
+
+barmyArrow()
 fooLandia()
 
 // a new nonsense rule: myName should not include Matias
