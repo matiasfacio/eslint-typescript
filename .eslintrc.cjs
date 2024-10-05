@@ -16,7 +16,7 @@ module.exports = {
       }
     },
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'eslint-rules'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'rules'],
   rules: {
@@ -25,5 +25,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'rules/my-rule-name': 'error'
-  }
+  },
 }
