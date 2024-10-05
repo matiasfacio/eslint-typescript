@@ -4,7 +4,7 @@ import {foo} from "./utility-functions/foo.tsx";
 // interesting here is the conflict between eslint and typescript
 // eslint is happy that foo is called with an argument,
 // but typescript says that foo should be call without arguments
-foo('matias')
+foo()
 
 // custom eslint rule: functions should not start with foo,
 function fooLandia(){
