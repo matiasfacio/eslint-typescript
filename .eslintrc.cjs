@@ -24,6 +24,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'rules/my-rule-name': 'error'
+    'rules/my-rule-name': 'error',
   },
 }

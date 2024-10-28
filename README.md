@@ -1,5 +1,3 @@
-# Experimenting with eslint custom rules
-
 ## How to run
 
 ### Option 1 - Install the package
@@ -12,7 +10,7 @@
 3. cd into project where you want to use the custom rule
 4. run `yarn link eslint-plugin-rules` (this name can be found in the package.json file of the eslint)
 
-Everywhere you have a `.eslintrc` file, you can add the custom rule like this:
+In your `.eslintrc` file, add the custom rule like this:
 
 ```json
 {
@@ -34,12 +32,8 @@ You should now see this local package in the node_modules folder of the project 
 
 #### Following Option 2
 1. cd into eslint-rules
-2. run `yarn unlink`
-3. edit your rule
-4. run tsc compiler `tsc testRule.ts`
-5. run `yarn link`
-6. cd into project where you want to use the custom rule
-7. run `yarn link eslint-plugin-rules` (name of the package in the package.json file of the eslint)
+2. edit your rule
+3. run tsc compiler `tsc testRule.ts`
 
 ### When you want to remove the rule
 

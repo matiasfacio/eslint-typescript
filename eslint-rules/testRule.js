@@ -5,39 +5,45 @@ var myRule = {
     meta: {
         type: 'problem',
         messages: {
-            functionStartsWithFoo: 'Custom Eslint Error: functions should not start with "foo". ',
+            functionStartsWithParkhere: 'Custom Eslint Error: functions should not start with "parkhere". ',
+            functionNeedsArguments: 'matias needs arguments'
         },
-        fixable: 'code',
         schema: [],
+        fixable: 'code',
     },
     create: function (context) {
         console.log({ context: context.filename });
         return ({
             ArrowFunctionExpression: function (node) {
-                var _a;
+                console.log(node, 'node params:', node.params);
                 var parent = node.parent;
-                if ("id" in parent && "name" in parent.id) {
-                    var name_1 = (_a = parent.id) === null || _a === void 0 ? void 0 : _a.name;
-                    if (name_1.startsWith('foo')) {
-                        return context.report({
-                            node: parent.id,
-                            messageId: 'functionStartsWithFoo',
-                            fix: function (fixer) {
-                                return fixer.replaceText(parent.id, name_1.replace('foo', 'bar'));
-                            }
-                        });
-                    }
+                var parentId = "id" in parent && parent.id !== null && parent.id;
+                var parentName = parentId && "name" in parentId && parentId.name;
+                if (parentId && typeof parentName === "string" && parentName.startsWith('matias') && node.params.length === 0) {
+                    return context.report({
+                        node: parentId,
+                        messageId: 'functionNeedsArguments'
+                    });
+                }
+                if (parentName && parentName.startsWith('parkhere')) {
+                    return context.report({
+                        node: parentId,
+                        messageId: 'functionStartsWithParkhere',
+                        fix: function (fixer) {
+                            return fixer.replaceText(parent.id, parentName.replace('parkhere', 'bar'));
+                        }
+                    });
                 }
             },
             FunctionDeclaration: function (node) {
                 if (node.id) {
-                    var name_2 = node.id.name;
-                    if (name_2.startsWith('foo')) {
+                    var name_1 = node.id.name;
+                    if (name_1.startsWith('parkhere')) {
                         return context.report({
                             node: node.id,
-                            messageId: 'functionStartsWithFoo',
+                            messageId: 'functionStartsWithParkhere',
                             fix: function (fixer) {
-                                return fixer.replaceText(node.id, name_2.replace('foo', 'bar'));
+                                return fixer.replaceText(node.id, name_1.replace('parkhere', 'foo'));
                             }
                         });
                     }
