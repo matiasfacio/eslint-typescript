@@ -2,7 +2,8 @@
 
 ### Option 1 - Install the package
 1. in the root folder run `yarn add ./estlin-rules`
-2. that's it
+2. configure the `.eslintrc` file
+3. that's it
 
 ### Option 2 - Link the package
 1. cd into eslint-rules

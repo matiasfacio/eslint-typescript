@@ -23,30 +23,11 @@ A linter specifically for Kotlin, focusing on coding style and formatting based 
 A more feature-rich tool than ktlint, Detekt checks for potential code issues and offers static analysis, covering issues like complex methods, large classes, and common Kotlin-specific pitfalls.
 SonarQube: Also supports Kotlin, performing static analysis to highlight code quality issues and maintainability concerns in Kotlin projects.
 
-## What is the process to create a rule ?
 
-- create npm project
-- install the required packages. Since I used typescript, this are the dependencies I needed:
-  ```js
-     "devDependencies": {
-     "@typescript-eslint/parser": "^6.19.1",
-     "@typescript-eslint/utils": "^6.19.1"
-     },
-     "dependencies": {
-     "typescript": "^5.3.3"
-     }
-  ```
-- create the rule:
-  - for this, we need to create a javascript object containing at list these 3 properties:
-    - defaultOptions:
-    - meta: requires 3 properties: type, messages, schema
-    - create: here we write the rule!
-- export the newly created rule
-- integrate it in your project
+## How do they work?
 
-## How to create a TSLint rule?
-
-- We need to create a javascript object containing at list these 3 properties:
-    - defaultOptions:
-    - meta: requires 3 properties: type, messages, schema
-    - create: here we write the rule!
+**AST (Abstract Syntax Tree)** is the key concept behind how linters work.
+AST is a tree representation of the abstract syntactic structure of source code written in a programming language.
+Linters parse the source code into an AST and then traverse the tree to analyze the code based on the rules defined.
+When a rule is violated, the linter reports the issue, often with a description and a suggested fix.
+[AST Explorer](https://astexplorer.net/)

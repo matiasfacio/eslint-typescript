@@ -3,6 +3,7 @@ import {fooMaterial} from "./utility-functions/foo.tsx";
 import Markdown from 'react-markdown'
 import Linter from "../Linter-1.md"
 import Readme from "../README.md"
+import {useState} from "react";
 
 // interesting here is the conflict between eslint and typescript
 // eslint is happy that foo is called with an argument,
@@ -32,10 +33,12 @@ console.log(myName, myName2, myName3)
 
 
 function App() {
+  const [shouldDisplayReadme, setShouldDisplayReadme] = useState(false)
   return (
     <>
         <Markdown children={Linter}/>
-        <Markdown children={Readme}/>
+        <button onClick={()=> setShouldDisplayReadme(!shouldDisplayReadme)}>How</button>
+        {shouldDisplayReadme && <Markdown children={Readme}/>}
     </>
   )
 }
