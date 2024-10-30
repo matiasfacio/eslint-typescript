@@ -1,57 +1,25 @@
 import {TSESLint} from '@typescript-eslint/utils';
 
-type MessageIds = 'functionStartsWithParkhere' | "functionNeedsArguments";
 
-const myRule: TSESLint.RuleModule<MessageIds> = {
+// we are going to type the "messages" object
+type MessageIds = '';
+
+
+// we add the type in this generic
+const myRule: TSESLint.RuleModule<string> = {
     defaultOptions: [],
     meta: {
         type: 'problem',
         messages: {
-            functionStartsWithParkhere: 'Custom Eslint Error: functions should not start with "parkhere". ',
-            functionNeedsArguments: 'matias needs arguments'
+            // here we define the messages that will be shown to the user based on the "MessageIds" type
         },
         schema: [],
         fixable: 'code',
     },
     create: context => {
+        // let's log the context
         console.log({context: context.filename})
-        return ({
-            ArrowFunctionExpression: node => {
-                console.log(node, 'node params:', node.params)
-                const parent = node.parent;
-                const parentId = "id" in parent && parent.id !== null && parent.id
-                const parentName = parentId && "name" in parentId && parentId.name;
-                if (parentId && typeof parentName === "string" && parentName.startsWith('matias') && node.params.length === 0) {
-                    return context.report({
-                        node: parentId,
-                        messageId: 'functionNeedsArguments'
-                    })
-                }
-                if (parentName && parentName.startsWith('parkhere')) {
-                    return context.report({
-                        node: parentId,
-                        messageId: 'functionStartsWithParkhere',
-                        fix: fixer => {
-                            return fixer.replaceText(parent.id!, parentName.replace('parkhere', 'bar'));
-                        }
-                    });
-                }
-            },
-            FunctionDeclaration: node => {
-                if (node.id) {
-                    const name = node.id.name;
-                    if (name.startsWith('parkhere')) {
-                        return context.report({
-                            node: node.id,
-                            messageId: 'functionStartsWithParkhere',
-                            fix: fixer => {
-                                return fixer.replaceText(node.id!, name.replace('parkhere', 'foo'));
-                            }
-                        });
-                    }
-                }
-            }
-        })
+        return context
     }
 }
 
