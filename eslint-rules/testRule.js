@@ -14,7 +14,7 @@ var myRule = {
     create: function (context) {
         // let's log the context
         console.log({ context: context.filename });
-        return context;
+        return {};
     }
 };
 exports.default = myRule;

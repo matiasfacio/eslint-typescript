@@ -19,7 +19,7 @@ const myRule: TSESLint.RuleModule<string> = {
     create: context => {
         // let's log the context
         console.log({context: context.filename})
-        return context
+        return {}
     }
 }
 
